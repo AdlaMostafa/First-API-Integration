@@ -1,60 +1,59 @@
-import React, { Component } from "react";
+import React, {useState,useEffect,useParams } from "react";
 import WithParams from "../../components/WithParams";
 import Container from "../../components/Container";
 import { Navigate } from "react-router-dom";
 import { PATHS } from "../../router/paths";
 import axios from "axios";
 
-class PostPage extends Component {
-  state = {
-    post: null,
-    isLoading: true,
-    isEditing: false,
+
+const PostPage =()=>{
+  const [post, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const { id } = useParams();
+
+
+
+   const handleEdit = () => {
+    console.log(id, "is edited");
+    setIsEditing(true);
   };
 
-  id = this.props?.params?.id;
-
-  handleEdit = () => {
-    console.log(this.id, "is edited");
-    this.setState({ isEditing: true });
-  };
-
-  async componentDidMount() {
-    // fetch(`https://some-data.onrender.com/stores/${this.id}`)
-    //   .then((response) => response.json())
-    //   .then((data) => this.setState({ post: data, isLoading: false }));
+  useEffect(() => {
+    const fetchData = async () => {
     try {
       const { data } = await axios.get(
         "https://some-data.onrender.com/stores/"
       );
       console.log(data);
-      this.setState({ post: data });
+      setPost(data);
     } catch (error) {
-      this.setState({ error: error.message });
+      console.log({error: error.message });
     } finally {
-      this.setState({ isLoading: false });
+       setIsLoading(false);
     }
-  }
+  };
+  fetchData();
+  }, [id]);
 
-  render() {
     return (
       <Container>
-        {this.state.isLoading ? (
+        {isLoading ? (
           <p>Loading...</p>
         ) : (
           <>
-            <h1>Post {this.state.post.id}</h1>
-            <h2>{this.state.post?.title}</h2>
-            <p>{this.state.post.body}</p>
+            <h1>Post {post.id}</h1>
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
           </>
         )}
-        <button onClick={this.handleEdit}>Edit</button>
-        {this.state.isEditing && (
-          <Navigate to={PATHS.POSTS.EDIT.replace(":id", this.id)} replace />
+        <button onClick={handleEdit}>Edit</button>
+        {isEditing && (
+          <Navigate to={PATHS.POSTS.EDIT.replace(":id", id)} replace />
         )}
       </Container>
     );
-  }
-}
+  };
+
 
 export default WithParams(PostPage);
