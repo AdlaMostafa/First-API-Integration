@@ -1,13 +1,13 @@
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 
-import HomePage from '../Pages/HomePage';
-import AboutPage from '../Pages/AboutPage';
-import PostsPage from '../Pages/PostsPage';
-import PostPage from '../Pages/PostPage';
-import EditPostPage from '../Pages/EditPostPage';
-import CreatePostPage from '../Pages/CreatePostPage';
+import HomePage from "../Pages/HomePage";
+import AboutPage from "../Pages/AboutPage";
+import PostsPage from "../Pages/PostsPage";
+import PostPage from "../Pages/PostPage";
+import EditPostPage from "../Pages/EditPostPage";
+import CreatePostPage from "../Pages/CreatePostPage";
 
-import { PATHS } from './paths';
+import { PATHS } from "./paths";
 
 const Router = () => {
   return (
@@ -27,7 +27,7 @@ const Router = () => {
       />
 
       <Route
-        path='*'
+        path="*"
         element={<Navigate to={PATHS.ERRORS.NOT_FOUND} replace={true} />}
       />
     </Routes>
