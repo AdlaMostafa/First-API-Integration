@@ -64,10 +64,7 @@ const [state,setState] = useState({
                 name={input.name}
                 value={state[input.id]}
                 onChange={handleChangeInput}
-                style={{
-                  padding: 10,
-                  width: 300,
-                }}
+                style={{padding: 10,width: 300,}}
               />
             ) : (
               <input
@@ -76,10 +73,7 @@ const [state,setState] = useState({
                 name={input.name}
                 value={state[input.id]}
                 onChange={handleChangeInput}
-                style={{
-                  padding: 10,
-                  width: 300,
-                }}
+                style={{padding: 10,width: 300,}}
               />
             )}
           </div>
