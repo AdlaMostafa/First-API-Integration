@@ -64,7 +64,11 @@ const [state,setState] = useState({
                 name={input.name}
                 value={state[input.id]}
                 onChange={handleChangeInput}
+<<<<<<< HEAD
                 style={{ padding: 15,width: 300,}}
+=======
+                style={{padding: 10,width: 300,}}
+>>>>>>> af6b40f9e14f4138c3d79b833018119962a80737
               />
             ) : (
               <input
@@ -73,8 +77,12 @@ const [state,setState] = useState({
                 name={input.name}
                 value={state[input.id]}
                 onChange={handleChangeInput}
+<<<<<<< HEAD
                 style={{padding: 15,width: 300,
                 }}
+=======
+                style={{padding: 10,width: 300,}}
+>>>>>>> af6b40f9e14f4138c3d79b833018119962a80737
               />
             )}
           </div>
