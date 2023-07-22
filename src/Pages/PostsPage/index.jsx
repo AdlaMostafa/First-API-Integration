@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Table from '../../components/Table';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { POSTS_COLUMNS } from '../../constants/posts';
 import { PATHS } from '../../router/paths';
 
 const PostsPage = () => {
+  const navigate = useNavigate();
   const [state, setState] = useState({
     posts: [],
     isLoading: true,
@@ -43,11 +44,13 @@ const PostsPage = () => {
   const handleEdit = (id) => {
     console.log(id, 'is edited');
     setState(prevState => ({ ...prevState, editId: id }));
+    navigate(PATHS.POSTS.EDIT.replace(':id',id))
   };
 
   const handleView = (row) => {
     console.log(row.id, 'is viewed');
     setState(prevState => ({ ...prevState, rowId: row.id }));
+    navigate(PATHS.POSTS.VIEW.replace(':id',row.id))
   };
 
   return (
@@ -63,16 +66,9 @@ const PostsPage = () => {
         onRowClick={handleView}
         isLoading={state.isLoading}
       />
-
-      {state.rowId && <Navigate to={`${state.rowId}`} replace />}
-      {state.editId && (
-        <Navigate
-          to={PATHS.POSTS.EDIT.replace(':id', state.editId)}
-          replace
-        />
-      )}
-      {state.isCreating && <Navigate to={PATHS.POSTS.CREATE} replace />}
-    </div>
+       {state.rowId && navigate(`${state.rowId}`, { replace: true })}
+       {state.editId && navigate(PATHS.POSTS.EDIT.replace(':id', state.editId), { replace: true })}
+       {state.isCreating && navigate(PATHS.POSTS.CREATE, { replace: true })}    </div>
   );
 };
 
