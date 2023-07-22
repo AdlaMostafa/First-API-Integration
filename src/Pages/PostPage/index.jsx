@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import WithParams from "../../components/WithParams";
 import Container from "../../components/Container";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { PATHS } from "../../router/paths";
 import axios from "axios";
 
@@ -10,11 +10,9 @@ const PostPage = ({ params }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const id = params?.id;
+  const navigate = useNavigate();
 
-  const handleEdit = () => {
-    console.log(id, "is edited");
-    setIsEditing(true);
-  };
+  const handleEdit = () => navigate(PATHS.POSTS.EDIT.replace(":id", id));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,9 +43,6 @@ const PostPage = ({ params }) => {
         </>
       )}
       <button onClick={handleEdit}>Edit</button>
-      {isEditing && (
-        <Navigate to={PATHS.POSTS.EDIT.replace(":id", id)} replace />
-      )}
     </Container>
   );
 };
